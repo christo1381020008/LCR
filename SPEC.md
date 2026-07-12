@@ -362,20 +362,23 @@ The script waits for the next confirmed pivot.
 
 # 13. NEW PIVOT
 
-If a new pivot appears before the previous pivot reaches 100%
+If a new pivot is confirmed before the current Active Pivot reaches 100% LCR:
 
-Freeze the previous pivot immediately.
+- Freeze the current Active Pivot at its current LCR value.
+- Store its frozen LCR.
+- Mark the pivot as Frozen.
+- Activate the newly confirmed pivot.
+- The new pivot becomes the Active Pivot.
 
-Store its current LCR.
+If the new Active Pivot later reaches 100%:
 
-Mark it as
+- Mark it as Consumed.
+- Remove its LCR label.
+- Reactivate the previous Frozen Pivot.
+- Resume its LCR calculation from its last frozen value.
+- Continue updating until it reaches 100% or another pivot becomes active.
 
-Replaced
-
-Activate the new pivot.
-
-Restart LCR from zero.
-
+A pivot always owns one single LCR value during its entire lifetime.
 ---
 
 # 14. DATA STORED
