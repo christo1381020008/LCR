@@ -294,3 +294,188 @@ Show Current LCR
 If disabled
 
 Display nothing except LCR label.
+---
+
+# 11. PIVOT LIFE CYCLE
+
+Each pivot follows the same lifecycle.
+
+STEP 1
+
+A pivot is confirmed.
+
+STEP 2
+
+It becomes the Active Pivot.
+
+STEP 3
+
+LCR starts at 0%.
+
+STEP 4
+
+LCR updates on every new candle.
+
+STEP 5
+
+When LCR reaches 100%
+
+The pivot becomes CONSUMED.
+
+STEP 6
+
+The pivot is frozen forever.
+
+STEP 7
+
+Wait for the next confirmed pivot.
+
+Only one Active Pivot exists.
+
+Only one pivot can update.
+
+Every previous pivot is immutable.
+
+---
+
+# 12. CONSUMED PIVOTS
+
+When LCR reaches 100%
+
+Store
+
+Final LCR
+
+Final Time
+
+Final Bar
+
+Consumed = True
+
+The pivot never changes again.
+
+The label disappears.
+
+The script waits for the next confirmed pivot.
+
+---
+
+# 13. NEW PIVOT
+
+If a new pivot appears before the previous pivot reaches 100%
+
+Freeze the previous pivot immediately.
+
+Store its current LCR.
+
+Mark it as
+
+Replaced
+
+Activate the new pivot.
+
+Restart LCR from zero.
+
+---
+
+# 14. DATA STORED
+
+Each pivot stores
+
+Pivot Price
+
+Pivot Time
+
+Pivot Index
+
+Bullish / Bearish
+
+Body Price
+
+Wick Price
+
+Current LCR
+
+Final LCR
+
+Consumed
+
+Replaced
+
+Confirmation Bar
+
+---
+
+# 15. HISTORY
+
+Maximum stored pivots
+
+User Input
+
+Default
+
+500
+
+If maximum is exceeded
+
+Delete the oldest pivot.
+
+Never delete the active pivot.
+
+---
+
+# 16. REPAINT
+
+No repaint allowed.
+
+Only confirmed pivots.
+
+No future information.
+
+No recalculation of historical pivots.
+
+Historical values never change.
+
+Historical labels never move.
+
+---
+
+# 17. ALERTS
+
+Alert
+
+New Pivot
+
+Alert
+
+LCR reaches 25%
+
+Alert
+
+LCR reaches 50%
+
+Alert
+
+LCR reaches 75%
+
+Alert
+
+LCR reaches 100%
+
+Each alert fires only once.
+
+---
+
+# 18. FAILSAFE
+
+If wick length equals zero
+
+Skip calculations.
+
+If pivot arrays become inconsistent
+
+Ignore the pivot.
+
+Never generate runtime errors.
+
+Always continue execution.
