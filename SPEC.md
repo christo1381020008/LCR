@@ -779,3 +779,262 @@ The pivot reached 100%.
 It is permanently finished.
 
 It can never become Active again.
+---
+
+# 31. MULTI TIMEFRAME
+
+The user must be able to choose the timeframe used to detect pivots.
+
+Supported values:
+
+• 1 Minute
+• 3 Minutes
+• 5 Minutes
+• 15 Minutes
+• 30 Minutes
+• 1 Hour
+• 4 Hours
+• Daily
+• Weekly
+• Monthly
+
+Pivot detection must always use request.security().
+
+Changing the Pivot Timeframe must immediately rebuild the pivot database.
+
+No historical pivot from the previous timeframe may remain.
+
+---
+
+# 32. PIVOT CONFIRMATION
+
+Only confirmed pivots are valid.
+
+A pivot does not exist before confirmation.
+
+The script must never anticipate a pivot.
+
+No repaint is allowed.
+
+---
+
+# 33. LCR MEMORY
+
+Each pivot owns only one LCR value.
+
+This value exists during the entire lifetime of the pivot.
+
+The LCR may evolve.
+
+The LCR may freeze.
+
+The LCR may resume.
+
+The LCR may finally become Consumed.
+
+A second LCR must never be created for the same pivot.
+
+---
+
+# 34. LABEL STYLE
+
+The user may customize:
+
+• Text Color
+
+• Bullish Label Color
+
+• Bearish Label Color
+
+• Text Size
+
+• Bold
+
+• Position
+
+Available positions
+
+Below
+
+Above
+
+Left
+
+Right
+
+Default
+
+Below for Bullish
+
+Above for Bearish
+
+---
+
+# 35. LABEL CONTENT
+
+The label must only display:
+
+LCR XX%
+
+Examples
+
+LCR 12%
+
+LCR 48%
+
+LCR 81%
+
+No decimals by default.
+
+User may enable
+
+1 decimal
+
+or
+
+2 decimals.
+
+No other text is allowed.
+
+---
+
+# 36. LABEL BEHAVIOUR
+
+The label follows the Active Pivot.
+
+Frozen labels remain fixed.
+
+Consumed labels disappear.
+
+Labels never overlap intentionally.
+
+Labels never change pivot.
+
+Each pivot owns one label only.---
+
+# 37. EXAMPLES OF EXPECTED BEHAVIOUR
+
+## Example 1
+
+A Bullish Pivot A is confirmed.
+
+Pivot A becomes the Active Pivot.
+
+LCR starts at 0%.
+
+Price moves into the wick.
+
+LCR increases.
+
+LCR reaches 42%.
+
+A new Bullish Pivot B is confirmed.
+
+Pivot A becomes Frozen.
+
+Pivot A stores:
+
+- Frozen LCR = 42%
+
+Pivot B becomes Active.
+
+Pivot B starts with LCR = 0%.
+
+---
+
+## Example 2
+
+Pivot B reaches 83%.
+
+Price continues.
+
+Pivot B reaches exactly 100%.
+
+Pivot B becomes Consumed.
+
+Its label disappears.
+
+The indicator searches for the latest Frozen Pivot.
+
+Pivot A is found.
+
+Pivot A becomes Active again.
+
+Its LCR resumes from 42%.
+
+The calculation continues normally.
+
+---
+
+## Example 3
+
+Pivot A finally reaches 100%.
+
+Pivot A becomes Consumed.
+
+Its label disappears.
+
+No Frozen Pivot exists anymore.
+
+The indicator waits for the next confirmed pivot.
+
+---
+
+## Example 4
+
+A pivot reaches 100%.
+
+This pivot is permanently finished.
+
+It can never become Active again.
+
+Its stored values remain available only for historical purposes.
+
+---
+
+## Example 5
+
+A Frozen Pivot never loses its stored LCR.
+
+It always resumes from its last frozen value.
+
+It never restarts from zero.
+
+---
+
+# 38. FINAL PRINCIPLES
+
+LCR is a measurement instrument.
+
+It is NOT a trading strategy.
+
+It is NOT a prediction tool.
+
+It does NOT generate signals.
+
+It does NOT identify entries.
+
+It does NOT identify exits.
+
+It does NOT identify trend direction.
+
+Its only responsibility is to measure liquidity consumption inside the wick of confirmed pivots.
+
+The trader remains entirely responsible for interpreting the information provided by LCR.
+
+---
+
+# 39. DEFINITION OF DONE
+
+The project is considered complete only if:
+
+- The script compiles without errors.
+- No repaint exists.
+- The LCR is always between 0% and 100%.
+- Frozen pivots resume correctly.
+- Consumed pivots never reactivate.
+- Only one Active Pivot exists.
+- Every pivot owns exactly one LCR.
+- The indicator respects every rule defined in this specification.
+
+No additional functionality shall be added unless the specification itself is updated.
