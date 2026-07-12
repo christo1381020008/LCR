@@ -482,3 +482,41 @@ Ignore the pivot.
 Never generate runtime errors.
 
 Always continue execution.
+---
+
+# 19. REFERENCE PIVOT SELECTION
+
+The indicator must always maintain one Active Reference Pivot.
+
+The Active Reference Pivot is the most recent confirmed pivot that has not yet reached 100% LCR.
+
+When a newer pivot is confirmed:
+
+- Freeze the previous Active Pivot.
+- Store its current LCR.
+- Activate the new pivot.
+
+When the Active Pivot reaches 100%:
+
+- Mark it as Consumed.
+- Remove its label.
+- Search backwards for the latest Frozen Pivot that has not yet reached 100%.
+- If one exists, reactivate it.
+- Resume its LCR from its stored frozen value.
+- Continue updating normally.
+
+If no valid Frozen Pivot exists:
+
+The indicator waits until a new pivot is confirmed.
+
+At every moment, only ONE pivot can be Active.
+
+All other pivots are either:
+
+• Frozen
+
+or
+
+• Consumed
+
+Never allow two Active pivots simultaneously.
