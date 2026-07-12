@@ -514,7 +514,119 @@ At every moment, only ONE pivot can be Active.
 All other pivots are either:
 
 • Frozen
+---
 
+# 20. USER SETTINGS
+
+The user must be able to configure every important parameter.
+
+Inputs
+
+• Pivot Timeframe
+
+• Pivot Left Bars
+
+• Pivot Right Bars
+
+• Maximum Stored Pivots
+
+• Maximum Displayed LCR Labels
+
+• Bullish Label Color
+
+• Bearish Label Color
+
+• Text Color
+
+• Text Size
+
+• Label Position
+
+Below the wick
+
+Above the wick
+
+Left of the wick
+
+Right of the wick
+
+• Bold Text
+
+Yes / No
+
+• Decimal Precision
+
+0
+
+1
+
+2
+
+Default = 0
+
+---
+
+# 21. LABEL RULES
+
+Each pivot owns only ONE LCR label.
+
+A label always belongs to its pivot.
+
+A label never changes pivot.
+
+A label only displays
+
+LCR xx%
+
+Example
+
+LCR 72%
+
+No other information is displayed.
+
+No arrows.
+
+No icons.
+
+No trend indication.
+
+No Buy / Sell.
+
+The LCR value is the only information.
+
+---
+
+# 22. LABEL REMOVAL
+
+If LCR reaches 100%
+
+Delete the label immediately.
+
+The pivot remains stored.
+
+The LCR value remains stored internally.
+
+Only the visual label disappears.
+
+The pivot can still become Active again if required by the Active Pivot Selection rules.
+
+---
+
+# 23. PERFORMANCE
+
+The script must remain lightweight.
+
+Avoid unnecessary loops.
+
+Never scan more pivots than required.
+
+Delete old pivots when Maximum Stored Pivots is exceeded.
+
+Use arrays efficiently.
+
+Never create duplicated labels.
+
+Never create duplicated pivots.
 or
 
 • Consumed
