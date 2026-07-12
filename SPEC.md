@@ -1,119 +1,156 @@
-# LCR – Liquidity Consumption Ratio
-
-Version : 1.0
-
-Author : ChrisAvd
-
-Status : SPECIFICATION FROZEN
-
-Motto
-
-> Measure first. Interpret later.
+# Liquidity Consumption Ratio (LCR)
+## Complete Specification
+Version 2.0
 
 ---
 
-# 1. PROJECT DESCRIPTION
+# 1. OBJECTIVE
 
-LCR (Liquidity Consumption Ratio) is a liquidity measurement tool.
+The purpose of this indicator is to measure how much liquidity has been consumed inside the wick of the latest confirmed pivot.
 
-It measures the percentage of wick consumption from a reference pivot until another pivot becomes the active reference or until the wick has been completely consumed.
+The script must continuously monitor pivots.
 
-LCR NEVER generates trading signals.
+Only ONE pivot is active at a time.
 
-It NEVER gives Buy, Sell, Bullish, Bearish or Smart Money decisions.
+When a new confirmed pivot appears:
 
-Its only purpose is to objectively measure liquidity consumption.
+- Freeze every value of the previous pivot.
+- Store all data in arrays.
+- Activate the new pivot.
+- Start a new LCR calculation.
 
----
+No repaint.
 
-# 2. PROJECT PHILOSOPHY
-
-LCR is NOT an indicator.
-
-LCR is a measurement instrument.
-
-Its role is comparable to a thermometer.
-
-It measures.
-
-The trader interprets.
-
-The indicator never makes trading decisions.
+Only confirmed pivots are allowed.
 
 ---
 
-# 3. ABSOLUTE RULES
+# 2. PIVOT DETECTION
 
-The following features are permanently forbidden.
+Inputs:
 
-• Buy signals
+Pivot Timeframe
 
-• Sell signals
+Left Bars
 
-• CHoCH detection
+Right Bars
 
-• MSS detection
+Use
 
-• Order Blocks
+request.security()
 
-• Fair Value Gaps
+to detect pivots on the selected timeframe.
 
-• BOS
+Bullish pivot
 
-• Market Structure
+ta.pivotlow()
 
-• AI prediction
+Bearish pivot
 
-• Trend prediction
+ta.pivothigh()
 
-LCR must always remain a measurement tool.
+Only confirmed pivots.
 
----
-
-# 4. PIVOT DETECTION
-
-The user chooses
-
-• Pivot Timeframe
-
-Examples
-
-Daily
-
-4H
-
-1H
-
-15m
-
-etc.
-
-The user also chooses
-
-Pivot Left
-
-Pivot Right
-
-Example
-
-Left = 3
-
-Right = 3
-
-A pivot is considered valid ONLY when TradingView confirms it.
-
-No anticipation is allowed.
+No repaint.
 
 ---
 
-# 5. REFERENCE PIVOT
+# 3. STORED INFORMATION
 
-Only ONE reference pivot exists at any moment.
+Each pivot must store:
 
-Whenever a newer pivot is confirmed
+Price
 
-The newest pivot becomes the active reference.
+Bar index
 
-The previous reference becomes frozen.
+Time
 
-Its LCR value remains displayed.
+Bullish / Bearish
+
+Current LCR
+
+Body price
+
+Wick extreme
+
+Confirmation state
+
+Arrays:
+
+pivotPrices
+
+pivotBull
+
+pivotTimes
+
+pivotBarIndex
+
+pivotLCR
+
+pivotConfirmed
+
+---
+
+# 4. ACTIVE REFERENCE PIVOT
+
+Variables
+
+activePivotIndex
+
+activePivotBody
+
+activePivotWick
+
+activeBullPivot
+
+activePivotLCR
+
+When a new pivot appears
+
+Freeze previous pivot
+
+Save LCR
+
+Save state
+
+Activate new pivot
+
+Only one active pivot exists.
+
+---
+
+# 5. BODY / WICK RULES
+
+Bullish Pivot
+
+Body reference
+
+close
+
+Wick reference
+
+low
+
+Wick length
+
+close - low
+
+Bearish Pivot
+
+Body reference
+
+close
+
+Wick reference
+
+high
+
+Wick length
+
+high - close
+
+If wick length <= 0
+
+LCR = 0
+
+Continue calculations only if wick > 0.
