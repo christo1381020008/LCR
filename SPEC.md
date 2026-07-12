@@ -632,3 +632,150 @@ or
 • Consumed
 
 Never allow two Active pivots simultaneously.
+---
+
+# 24. LCR CALCULATION RULES
+
+The LCR always measures the consumption of the wick belonging to the Active Reference Pivot.
+
+Bullish Pivot
+
+0% = Body Low
+
+100% = Wick Low
+
+Bearish Pivot
+
+0% = Body High
+
+100% = Wick High
+
+The LCR is calculated only inside the wick.
+
+The body is never included.
+
+The calculation must always remain between:
+
+0%
+
+and
+
+100%.
+
+---
+
+# 25. FROZEN PIVOTS
+
+When a pivot loses its Active status because a newer pivot is confirmed:
+
+Freeze the current LCR.
+
+Do not update it anymore.
+
+Keep the label visible.
+
+Store the frozen value.
+
+---
+
+# 26. REACTIVATED PIVOTS
+
+If the Active Pivot reaches 100%:
+
+- Mark it as Consumed.
+- Delete its LCR label.
+- Stop updating it forever.
+
+Then:
+
+Search backwards for the most recent Frozen Pivot.
+
+If its LCR is still below 100%:
+
+- Reactivate it.
+- Resume its LCR from its last frozen value.
+- Continue updating normally.
+
+If no Frozen Pivot is available:
+
+Wait until a new confirmed pivot is created.
+
+---
+
+# 27. CONSUMED PIVOTS
+
+A Consumed Pivot is a pivot whose LCR has reached exactly 100%.
+
+A Consumed Pivot:
+
+- Can never receive updates again.
+- Can never become the Active Pivot again.
+- Keeps its stored data for historical purposes.
+- Never displays its LCR label again.
+---
+
+# 28. DISPLAY LIMIT
+
+Input
+
+Maximum Displayed Labels
+
+Range
+
+1 → 100
+
+Default
+
+10
+
+If the number of visible labels exceeds the limit
+
+Hide the oldest visible labels.
+
+Never hide the Active Pivot label.
+
+---
+
+# 29. FINAL DESIGN RULES
+
+LCR must remain a measurement instrument.
+
+Never generate trading signals.
+
+Never suggest entries.
+
+Never suggest exits.
+
+Never predict market direction.
+
+Never interpret liquidity.
+
+Only measure liquidity consumption.---
+
+# 30. PIVOT STATES
+
+Each pivot can only be in one of four states.
+
+WAITING
+
+The pivot has just been confirmed.
+
+ACTIVE
+
+The pivot is currently measured.
+
+FROZEN
+
+The pivot lost its Active status because a newer pivot became Active.
+
+Its LCR is frozen.
+
+It may become Active again later.
+
+CONSUMED
+
+The pivot reached 100%.
+
+It is permanently finished.
+
+It can never become Active again.
