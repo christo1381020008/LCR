@@ -1,0 +1,11 @@
+//@version=6
+indicator("LCR - Liquidity Consumption Ratio", overlay=true)
+
+//=============================================================================
+// LCR - Liquidity Consumption Ratio
+// Version : 1.0
+//
+// Author : ChrisAvd
+//
+// Measure first. Interpret later.
+//=============================================================================
